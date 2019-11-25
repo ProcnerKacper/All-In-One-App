@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'providers/schedule.dart';
 import 'screens/schedule_screen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'All in One',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        accentColor: Colors.black,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Schedule(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'All in One',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+          accentColor: Colors.black,
+        ),
+        home: ScheduleScreen(),
       ),
-      home: ScheduleScreen(),
     );
   }
 }
