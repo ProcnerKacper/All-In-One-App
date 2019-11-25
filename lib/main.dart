@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/schedule.dart';
+import 'screens/add_schedule_day_screen.dart';
 import 'screens/schedule_screen.dart';
 
 void main() => runApp(MyApp());
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.black,
         ),
         home: ScheduleScreen(),
+        routes: {
+          AddScheduleDayScreen.routeName: (ctx) => AddScheduleDayScreen(),
+        },
       ),
     );
   }
