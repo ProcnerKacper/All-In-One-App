@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/schedule_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,12 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('All in One'),
-        ),
-        body: Center(child: Text('All in One App')),
-      ),
+      home: ScheduleScreen(),
     );
   }
 }
