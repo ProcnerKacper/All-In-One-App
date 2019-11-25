@@ -52,4 +52,44 @@ class Schedule with ChangeNotifier {
       notifyListeners();
     } catch (e) {}
   }
+
+  Future<void> fetchSchedule() async {
+    final res =
+        await http.get('https://flutter-246b3.firebaseio.com/subjects.json');
+    Map<String, List<Subject>> schedule = {
+      'Monday': [],
+      'Tuesday': [],
+      'Wednesday': [],
+      'Thursday': [],
+      'Friday': [],
+    };
+    var data = json.decode(res.body);
+    if (data != null) {
+      for (var item in data.keys) {
+        List<Subject> list = [];
+        for (var prop in data[item]) {
+          list.add(
+            Subject(
+              subcject: prop['subcject'],
+              startTime: TimeOfDay(
+                hour: prop['startTime']['hour'],
+                minute: prop['startTime']['minute'],
+              ),
+              endTime: TimeOfDay(
+                hour: prop['endTime']['hour'],
+                minute: prop['endTime']['minute'],
+              ),
+              duration: prop['duration'],
+              lectureHall: prop['lectureHall'],
+              subcjectType: prop['subcjectType'],
+              professor: prop['professor'],
+            ),
+          );
+        }
+        schedule[item] = list;
+      }
+      _schedule = schedule;
+      notifyListeners();
+    }
+  }
 }
