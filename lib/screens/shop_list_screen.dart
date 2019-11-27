@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../widgets/app_drawer.dart';
+import 'add_list_item.dart';
 
 class ShopListScreen extends StatelessWidget {
   static const routeName = '/shop-list';
@@ -11,6 +11,10 @@ class ShopListScreen extends StatelessWidget {
       drawer: AppDrawer(),
       appBar: AppBar(
         title: const Text('Lista Zakupów'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.of(context).pushNamed(AddListItem.routeName),
       ),
       body: Center(child: Text('Lista Zakupów')),
     );
