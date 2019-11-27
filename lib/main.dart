@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/schedule.dart';
+import 'providers/shop_list.dart';
 import 'screens/add_schedule_day_screen.dart';
 import 'screens/schedule_screen.dart';
 import 'screens/shop_list_screen.dart';
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: Schedule(),
+        ),
+        ChangeNotifierProvider.value(
+          value: ShopList(),
         ),
       ],
       child: MaterialApp(
