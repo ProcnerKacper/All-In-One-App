@@ -106,16 +106,12 @@ class _AddSubjectState extends State<AddSubject> {
             TextFormField(
                 decoration: const InputDecoration(labelText: 'Wykladowca'),
                 initialValue: widget.subject.professor,
-                validator: (String val) =>
-                    val == '' ? 'Nie podano wykładowcy!' : null,
                 onSaved: (val) {
                   widget.subject.professor = val;
                 }),
             TextFormField(
                 decoration: const InputDecoration(labelText: 'Sala'),
                 initialValue: widget.subject.lectureHall,
-                validator: (String val) =>
-                    val == '' ? 'Nie podano sali!' : null,
                 onSaved: (val) {
                   widget.subject.lectureHall = val;
                 }),
