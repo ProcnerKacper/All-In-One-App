@@ -25,9 +25,11 @@ class Schedule with ChangeNotifier {
         .sort((a, b) => toDouble(a.startTime).compareTo(toDouble(b.startTime)));
     var bodyData = [];
     subjects.forEach((sub) {
-      int hour = sub.endTime.hour - sub.startTime.hour;
-      double minutes = (sub.endTime.minute - sub.startTime.minute) / 100;
-      sub.duration = hour + minutes;
+      int start = sub.startTime.hour * 60 + sub.startTime.minute;
+      int end = sub.endTime.hour * 60 + sub.endTime.minute;
+      Duration duration = Duration(minutes: (end - start));
+      sub.duration = double.parse(
+          '${duration.inHours}.${duration.inMinutes - (duration.inHours * 60)}');
       dynamic body = {
         'subcject': sub.subcject,
         'startTime': {

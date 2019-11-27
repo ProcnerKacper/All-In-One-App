@@ -1,12 +1,13 @@
-import 'package:all_in_one/models/days.dart';
-import 'package:all_in_one/providers/schedule.dart';
-import 'package:all_in_one/widgets/day_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/app_drawer.dart';
 import 'add_schedule_day_screen.dart';
+import '../models/days.dart';
+import '../providers/schedule.dart';
+import '../widgets/day_schedule.dart';
+import '../widgets/day_switcher.dart';
+import '../widgets/app_drawer.dart';
 
 class ScheduleScreen extends StatefulWidget {
   @override
@@ -91,7 +92,10 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                     child: child, scale: animation);
                               },
                               duration: const Duration(milliseconds: 200),
-                              child: Center(child: Text('Plan Lekcji')),
+                              child: DaySchedule(
+                                lessons: schedule.schedule[_pickedDay],
+                                key: ValueKey<String>(_pickedDay),
+                              ),
                             ),
                           ),
                         ),
