@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'All in One',
         theme: ThemeData(
-          primarySwatch: Colors.red,
-          accentColor: Colors.black,
-        ),
+            primarySwatch: Colors.red,
+            accentColor: Colors.black,
+            fontFamily: 'Dosis'),
         home: ScheduleScreen(),
         routes: {
           AddScheduleDayScreen.routeName: (ctx) => AddScheduleDayScreen(),
