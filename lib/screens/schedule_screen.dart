@@ -50,65 +50,38 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        title: const Text('Plan Lekcji'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () =>
-            Navigator.of(context).pushNamed(AddScheduleDayScreen.routeName),
-      ),
-      body: FutureBuilder(
-          future: Provider.of<Schedule>(context, listen: false).fetchSchedule(),
-          builder: (ctx, dataSnapshot) {
-            if (dataSnapshot.connectionState == ConnectionState.waiting) {
-              print(dataSnapshot.connectionState);
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              if (dataSnapshot.error != null) {
-                return Center(
-                  child: Text('An error occurred!'),
-                );
-              } else {
-                return GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onPanEnd: (details) {
-                    direction = '';
-                  },
-                  onPanUpdate: (details) {
-                    if (details.delta.dx < 0 && direction != 'forward') {
-                      direction = 'forward';
-                      _changeDay('forward');
-                    }
-                    if (details.delta.dx > 0 && direction != 'back') {
-                      direction = 'back';
-                      _changeDay('back');
-                    }
-                  },
-                  child: Consumer<Schedule>(
-                    builder: (ctx, schedule, child) => Column(
-                      children: [
-                        child,
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: AnimatedSwitcher(
-                              transitionBuilder:
-                                  (Widget child, Animation<double> animation) {
-                                return ScaleTransition(
-                                    child: child, scale: animation);
-                              },
-                              duration: const Duration(milliseconds: 200),
-                              child: DaySchedule(
-                                lessons: schedule.schedule[_pickedDay],
-                                key: ValueKey<String>(_pickedDay),
-                              ),
-                            ),
+  Future<void> _editDay() async {
+    String response = await showDialog(
+        context: context,
+        builder: (BuildContext context) => Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 20.0, horizontal: 10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      'Wybierz akcje:',
+                      style: TextStyle(fontSize: 30.0),
+                    ),
+                    SizedBox(
+                      height: 25.0,
+                    ),
+                    ...[
+                      {'name': 'add', 'icon': Icons.add},
+                      {'name': 'edit', 'icon': Icons.edit},
+                      {'name': 'delete', 'icon': Icons.delete},
+                    ].map(
+                      (data) => Card(
+                        elevation: 4,
+                        margin: EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 10.0),
+                        child: ListTile(
+                          leading: Icon(
+                            data['icon'],
+                            color: Colors.red,
                           ),
                           title: Text(data['name']),
                           onTap: () => Navigator.of(context).pop(data['name']),

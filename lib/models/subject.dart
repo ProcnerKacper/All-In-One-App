@@ -13,9 +13,9 @@ class Subject {
     this.subcject = '',
     this.startTime = const TimeOfDay(hour: 8, minute: 0),
     this.endTime = const TimeOfDay(hour: 20, minute: 0),
-    @required this.duration,
-    @required this.subcjectType,
-    @required this.professor,
-    @required this.lectureHall,
+    this.duration,
+    this.subcjectType,
+    this.professor,
+    this.lectureHall,
   });
 }

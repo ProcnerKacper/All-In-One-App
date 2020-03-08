@@ -32,6 +32,7 @@ class _AddSubjectState extends State<AddSubject> {
       setState(() {
         _startTime = widget.subject.startTime;
         _endTime = widget.subject.endTime;
+        _type = widget.subject.subcjectType;
       });
       isInit = false;
     }

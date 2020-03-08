@@ -8,6 +8,8 @@ import '../widgets/add_subject.dart';
 
 class AddScheduleDayScreen extends StatefulWidget {
   static const routeName = '/add-schedule-day';
+  final String dayName;
+  AddScheduleDayScreen([this.dayName]);
   @override
   _AddScheduleDayScreenState createState() => _AddScheduleDayScreenState();
 }
@@ -20,14 +22,29 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
 
   @override
   void initState() {
-    Subject sub = Subject();
-    _listOfTextForm.add(
-      AddSubject(
-        subject: sub,
-        index: 0,
-        key: UniqueKey(),
-      ),
-    );
+    if (widget.dayName != null) {
+      int index = 0;
+      List<Subject> day = Provider.of<ScheduleProvider>(context, listen: false)
+          .scheduleDay(widget.dayName);
+      day.forEach((sub) {
+        _listOfTextForm.add(AddSubject(
+          subject: sub,
+          index: index,
+          key: UniqueKey(),
+        ));
+        index++;
+      });
+      _formData['day'] = widget.dayName;
+    } else {
+      Subject sub = Subject();
+      _listOfTextForm.add(
+        AddSubject(
+          subject: sub,
+          index: 0,
+          key: UniqueKey(),
+        ),
+      );
+    }
     super.initState();
   }
 
@@ -76,26 +93,30 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                DropdownButtonFormField(
-                  hint: const Text('Wybierz dzień'),
-                  value: _pickedDay,
-                  items: Day.keys
-                      .map((day) => DropdownMenuItem(
-                            value: day,
-                            child: Text(
-                              Day[day],
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (day) {
-                    if (day != null) {
-                      setState(() => _pickedDay = day);
-                    }
-                  },
-                  validator: (String val) =>
-                      val == null ? 'Nie wybrano dnia!' : null,
-                  onSaved: (value) => setState(() => _formData['day'] = value),
-                ),
+                if (widget.dayName == null)
+                  DropdownButtonFormField(
+                    hint: const Text('Wybierz dzień'),
+                    value: _pickedDay,
+                    items: Day.keys
+                        .map((day) => DropdownMenuItem(
+                              value: day,
+                              child: Text(
+                                Day[day],
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (day) {
+                      if (day != null) {
+                        setState(() => _pickedDay = day);
+                      }
+                    },
+                    validator: (String val) =>
+                        val == null ? 'Nie wybrano dnia!' : null,
+                    onSaved: (value) =>
+                        setState(() => _formData['day'] = value),
+                  )
+                else
+                  Text(Day[widget.dayName]),
                 SizedBox(
                   height: 10,
                 ),
