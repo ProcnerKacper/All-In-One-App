@@ -1,16 +1,12 @@
 # all_in_one
 
-A new Flutter application that include all need features in one places
+A new Flutter application that include all need features in one places.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### to order to run app on your own you need to
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. install all dependency by running fluttter get pub
+2. create firebase project
+3. add android application to your project
+4. while adding application add generated google-services.json to android/app
