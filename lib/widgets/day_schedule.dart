@@ -78,13 +78,12 @@ class DaySchedule extends StatelessWidget {
     return list;
   }
 
-  String convertToHoursFormat(TimeOfDay time) {
-    return '${time.hour}:${time.minute.toString().padLeft(2, '0')}';
+  String removeDecimalZeroFormat(double n) {
+    return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1);
   }
 
-  String getDuration(double duration) {
-    List<String> splitDuration = duration.toString().split('.');
-    return '${splitDuration[0]}h ${splitDuration[1].padRight(2, '0')}min';
+  String convertToHoursFormat(TimeOfDay time) {
+    return '${time.hour}:${time.minute.toString().padLeft(2, '0')}';
   }
 
   List<Widget> _scheduleBuilder(
@@ -134,7 +133,7 @@ class DaySchedule extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(getDuration(item.duration)),
+                    Text('czas: ${removeDecimalZeroFormat(item.duration)}h'),
                   ],
                 ),
                 Text(
@@ -167,7 +166,7 @@ class DaySchedule extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(40.0),
-                  child: Image.asset('assets/images/cool_smiley.jpg'),
+                  child: Image.asset('assets/images/cool_smiley.png'),
                 ),
               ],
             )
