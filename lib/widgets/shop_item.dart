@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/item.dart';
-import '../providers/shop_list.dart';
+import '../providers/shop_list_provider.dart';
 import 'rounded_checkbox.dart';
 
 class ShopItem extends StatelessWidget {
@@ -29,7 +29,7 @@ class ShopItem extends StatelessWidget {
         leading: RoundedCheckbox(
           value: item.inCart,
           onChange: (val) {
-            Provider.of<ShopList>(context).change(item.id, val);
+            Provider.of<ShopListProvider>(context).change(item.id, val);
           },
           size: 18.0,
           color: Colors.red,

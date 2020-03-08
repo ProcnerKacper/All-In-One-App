@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/shop_list.dart';
-import '../widgets/shop_item.dart';
+import '../providers/shop_list_provider.dart';
 import '../widgets/app_drawer.dart';
+import '../widgets/shop_item.dart';
 import 'add_list_item.dart';
 
 class ShopListScreen extends StatelessWidget {
@@ -20,7 +20,8 @@ class ShopListScreen extends StatelessWidget {
         onPressed: () => Navigator.of(context).pushNamed(AddListItem.routeName),
       ),
       body: FutureBuilder(
-          future: Provider.of<ShopList>(context, listen: false).fetchList(),
+          future:
+              Provider.of<ShopListProvider>(context, listen: false).fetchList(),
           builder: (ctx, dataSnapshot) {
             if (dataSnapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -32,7 +33,7 @@ class ShopListScreen extends StatelessWidget {
                   child: Text('An error occurred!'),
                 );
               } else {
-                return Consumer<ShopList>(
+                return Consumer<ShopListProvider>(
                   builder: (_, list, __) => ListView.builder(
                     itemBuilder: (_, i) => Dismissible(
                       key: ValueKey(list.list[i].id),
@@ -48,7 +49,7 @@ class ShopListScreen extends StatelessWidget {
                       child: ShopItem(list.list[i]),
                       direction: DismissDirection.endToStart,
                       onDismissed: (_) {
-                        Provider.of<ShopList>(context, listen: false)
+                        Provider.of<ShopListProvider>(context, listen: false)
                             .deleteItem(list.list[i].id);
                       },
                     ),

@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'add_schedule_day_screen.dart';
 import '../models/days.dart';
-import '../providers/schedule.dart';
 import '../widgets/day_schedule.dart';
+import '../providers/schedule_provider.dart';
 import '../widgets/day_switcher.dart';
 import '../widgets/app_drawer.dart';
 

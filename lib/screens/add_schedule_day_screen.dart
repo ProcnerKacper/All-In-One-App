@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/days.dart';
 import '../models/subject.dart';
-import '../providers/schedule.dart';
+import '../providers/schedule_provider.dart';
 import '../widgets/add_subject.dart';
 
 class AddScheduleDayScreen extends StatefulWidget {
@@ -57,7 +57,7 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
     if (allValid) {
       _formKey.currentState.save();
       List<Subject> subjects = _listOfTextForm.map((it) => it.subject).toList();
-      Provider.of<Schedule>(context).addDay(subjects, _pickedDay);
+      Provider.of<ScheduleProvider>(context).addDay(subjects, _pickedDay);
       Navigator.of(context).pop();
     }
   }

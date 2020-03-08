@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/shop_list.dart';
+import '../providers/shop_list_provider.dart';
 
 class AddListItem extends StatefulWidget {
   static const routeName = '/add-list-item';
@@ -17,7 +17,7 @@ class _AddListItemState extends State<AddListItem> {
     var valid = _key.currentState.validate();
     if (valid) {
       _key.currentState.save();
-      Provider.of<ShopList>(context)
+      Provider.of<ShopListProvider>(context)
           .addItem(_formData['name'], _formData['amount']);
       Navigator.of(context).pop();
     }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'providers/schedule.dart';
-import 'providers/shop_list.dart';
+import 'providers/schedule_provider.dart';
+import 'providers/shop_list_provider.dart';
 import 'screens/add_list_item.dart';
 import 'screens/add_schedule_day_screen.dart';
 import 'screens/schedule_screen.dart';
@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: Schedule(),
+        ChangeNotifierProvider(
+          create: (_) => ScheduleProvider(),
         ),
-        ChangeNotifierProvider.value(
-          value: ShopList(),
+        ChangeNotifierProvider(
+          create: (_) => ShopListProvider(),
         ),
       ],
       child: MaterialApp(
