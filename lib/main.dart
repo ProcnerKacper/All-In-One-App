@@ -28,11 +28,25 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.red,
             accentColor: Colors.black,
             fontFamily: 'Dosis'),
-        home: ScheduleScreen(),
-        routes: {
-          AddScheduleDayScreen.routeName: (ctx) => AddScheduleDayScreen(),
-          ShopListScreen.routeName: (ctx) => ShopListScreen(),
-          AddListItem.routeName: (ctx) => AddListItem()
+        initialRoute: ScheduleScreen.routeName,
+        onGenerateRoute: (settings) {
+          final args = settings.arguments;
+          Widget widget;
+          switch (settings.name) {
+            case AddScheduleDayScreen.routeName:
+              widget = AddScheduleDayScreen(args);
+              break;
+            case ScheduleScreen.routeName:
+              widget = ScheduleScreen();
+              break;
+            case AddListItem.routeName:
+              widget = AddListItem();
+              break;
+            case ShopListScreen.routeName:
+              widget = ShopListScreen();
+              break;
+          }
+          return MaterialPageRoute(builder: (_) => widget);
         },
       ),
     );
