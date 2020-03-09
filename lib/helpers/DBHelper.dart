@@ -49,7 +49,8 @@ class DBHelper {
     return schedule;
   }
 
-  static Future<void> addDay(List bodyData, String day) async {
+  static Future<void> addDay(
+      List<Map<String, dynamic>> bodyData, String day) async {
     try {
       await _db.child('subjects').child(day).set(bodyData);
     } catch (e) {

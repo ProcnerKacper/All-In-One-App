@@ -74,7 +74,7 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
     if (allValid) {
       _formKey.currentState.save();
       List<Subject> subjects = _listOfTextForm.map((it) => it.subject).toList();
-      Provider.of<ScheduleProvider>(context).addDay(subjects, _pickedDay);
+      Provider.of<ScheduleProvider>(context).addDay(subjects, _formData['day']);
       Navigator.of(context).pop();
     }
   }
@@ -129,7 +129,9 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
                 ),
                 RaisedButton(
                   onPressed: _onSave,
-                  child: const Text('Dodaj dzień'),
+                  child: Text(widget.dayName == null
+                      ? 'Dodaj dzień'
+                      : 'Zaktulizuj dzień'),
                   color: Theme.of(context).accentColor,
                   textColor: Colors.white,
                   shape: RoundedRectangleBorder(
