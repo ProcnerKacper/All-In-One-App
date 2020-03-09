@@ -31,6 +31,7 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
           subject: sub,
           index: index,
           key: UniqueKey(),
+          remove: _removeSubject,
         ));
         index++;
       });
@@ -48,6 +49,12 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
     super.initState();
   }
 
+  void _removeSubject(int index) {
+    setState(() {
+      _listOfTextForm.removeWhere((i) => i.index == index);
+    });
+  }
+
   void _addSubject() {
     int index = _listOfTextForm.length;
     Subject sub = Subject();
@@ -58,12 +65,6 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
         remove: _removeSubject,
         key: UniqueKey(),
       ));
-    });
-  }
-
-  void _removeSubject(int index) {
-    setState(() {
-      _listOfTextForm.removeWhere((i) => i.index == index);
     });
   }
 
