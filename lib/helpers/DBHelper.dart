@@ -72,11 +72,14 @@ class DBHelper {
     Map<String, dynamic> shopList = Map<String, dynamic>.from(snapshot.value);
     List<Item> list = [];
     shopList.forEach((key, item) {
-      list.add(Item(
+      list.add(
+        Item(
           id: key,
           name: item['name'],
-          amount: int.parse(item['amount']),
-          inCart: item['inCart']));
+          amount: item['amount'],
+          inCart: item['inCart'],
+        ),
+      );
     });
     return list;
   }
