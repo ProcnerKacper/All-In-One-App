@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Subject {
-  String subcject;
+  String? subcject;
   TimeOfDay startTime;
   TimeOfDay endTime;
-  double duration;
-  String subcjectType;
-  String professor;
-  String lectureHall;
+  double? duration;
+  String? subcjectType;
+  String? professor;
+  String? lectureHall;
 
   Subject({
     this.subcject = '',

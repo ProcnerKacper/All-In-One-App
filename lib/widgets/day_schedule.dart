@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../models/subject.dart';
 
 class DaySchedule extends StatelessWidget {
-  final List<Subject> lessons;
+  final List<Subject>? lessons;
 
-  DaySchedule({this.lessons, Key key}) : super(key: key);
+  DaySchedule({this.lessons, Key? key}) : super(key: key);
 
   List<Widget> _timeLineBuilder(List<Subject> lessons) {
     int startTable = lessons[0].startTime.hour;
@@ -125,7 +125,7 @@ class DaySchedule extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        item.subcject,
+                        item.subcject!,
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontSize: 18,
@@ -133,7 +133,7 @@ class DaySchedule extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text('czas: ${removeDecimalZeroFormat(item.duration)}h'),
+                    Text('czas: ${removeDecimalZeroFormat(item.duration!)}h'),
                   ],
                 ),
                 Text(
@@ -156,7 +156,7 @@ class DaySchedule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: lessons.length <= 0
+      child: lessons!.length <= 0
           ? Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -174,13 +174,13 @@ class DaySchedule extends StatelessWidget {
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: _timeLineBuilder(lessons),
+                  children: _timeLineBuilder(lessons!),
                 ),
                 Positioned.fill(
                   child: LayoutBuilder(
                     builder: (context, constraints) => Container(
                       child: Stack(
-                        children: _scheduleBuilder(lessons, constraints),
+                        children: _scheduleBuilder(lessons!, constraints),
                       ),
                     ),
                   ),

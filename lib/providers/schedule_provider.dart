@@ -16,8 +16,8 @@ class ScheduleProvider with ChangeNotifier {
     return {..._schedule};
   }
 
-  List<Subject> scheduleDay(String name) {
-    return [..._schedule[name]];
+  List<Subject> scheduleDay(String? name) {
+    return [..._schedule[name!]!];
   }
 
   Future<void> fetchSchedule() async {
@@ -26,13 +26,13 @@ class ScheduleProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addDay(List<Subject> subjects, String day) async {
+  Future<void> addDay(List<Subject?> subjects, String day) async {
     double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
     subjects
-        .sort((a, b) => toDouble(a.startTime).compareTo(toDouble(b.startTime)));
+        .sort((a, b) => toDouble(a!.startTime).compareTo(toDouble(b!.startTime)));
     List<Map<String, dynamic>> bodyData = [];
     subjects.forEach((sub) {
-      int hour = sub.endTime.hour - sub.startTime.hour;
+      int hour = sub!.endTime.hour - sub.startTime.hour;
       double minutes = (sub.endTime.minute - sub.startTime.minute) / 100;
       sub.duration = hour + minutes;
       Map<String, dynamic> body = {

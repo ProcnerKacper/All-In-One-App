@@ -15,7 +15,7 @@ class ShopItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        image: item.inCart
+        image: item.inCart!
             ? DecorationImage(
                 image: AssetImage('assets/images/brush.png'),
                 fit: BoxFit.fitWidth)
@@ -23,13 +23,13 @@ class ShopItem extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(
-          item.name,
+          item.name!,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         leading: RoundedCheckbox(
           value: item.inCart,
           onChange: (val) {
-            Provider.of<ShopListProvider>(context).change(item.id, val);
+            Provider.of<ShopListProvider>(context).change(item.id!, val);
           },
           size: 18.0,
           color: Colors.red,

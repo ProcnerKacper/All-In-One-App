@@ -8,7 +8,7 @@ import '../widgets/add_subject.dart';
 
 class AddScheduleDayScreen extends StatefulWidget {
   static const routeName = '/add-schedule-day';
-  final String dayName;
+  final String? dayName;
   AddScheduleDayScreen([this.dayName]);
   @override
   _AddScheduleDayScreenState createState() => _AddScheduleDayScreenState();
@@ -16,7 +16,7 @@ class AddScheduleDayScreen extends StatefulWidget {
 
 class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _pickedDay;
+  String? _pickedDay;
   Map<String, dynamic> _formData = {};
   List<AddSubject> _listOfTextForm = [];
 
@@ -71,10 +71,10 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
   void _onSave() {
     bool allValid = true;
     _listOfTextForm.forEach((form) => allValid = form.isValid());
-    if (!_formKey.currentState.validate()) allValid = false;
+    if (!_formKey.currentState!.validate()) allValid = false;
     if (allValid) {
-      _formKey.currentState.save();
-      List<Subject> subjects = _listOfTextForm.map((it) => it.subject).toList();
+      _formKey.currentState!.save();
+      List<Subject?> subjects = _listOfTextForm.map((it) => it.subject).toList();
       Provider.of<ScheduleProvider>(context).addDay(subjects, _formData['day']);
       Navigator.of(context).pop();
     }
@@ -102,22 +102,22 @@ class _AddScheduleDayScreenState extends State<AddScheduleDayScreen> {
                         .map((day) => DropdownMenuItem(
                               value: day,
                               child: Text(
-                                Day[day],
+                                Day[day]!,
                               ),
                             ))
                         .toList(),
-                    onChanged: (day) {
+                    onChanged: (dynamic day) {
                       if (day != null) {
                         setState(() => _pickedDay = day);
                       }
                     },
-                    validator: (String val) =>
+                    validator: (String? val) =>
                         val == null ? 'Nie wybrano dnia!' : null,
-                    onSaved: (value) =>
+                    onSaved: (dynamic value) =>
                         setState(() => _formData['day'] = value),
                   )
                 else
-                  Text(Day[widget.dayName]),
+                  Text(Day[widget.dayName!]!),
                 SizedBox(
                   height: 10,
                 ),

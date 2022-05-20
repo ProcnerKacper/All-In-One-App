@@ -14,9 +14,9 @@ class _AddListItemState extends State<AddListItem> {
   Map<String, dynamic> _formData = {};
 
   void _onSave() {
-    var valid = _key.currentState.validate();
+    var valid = _key.currentState!.validate();
     if (valid) {
-      _key.currentState.save();
+      _key.currentState!.save();
       Provider.of<ShopListProvider>(context)
           .addItem(_formData['name'], _formData['amount']);
       Navigator.of(context).pop();
@@ -39,7 +39,7 @@ class _AddListItemState extends State<AddListItem> {
               TextFormField(
                   decoration:
                       const InputDecoration(labelText: 'Nazwa produktu'),
-                  validator: (String val) =>
+                  validator: (String? val) =>
                       val == '' ? 'Nie podano nazyw produktu!' : null,
                   onSaved: (val) {
                     setState(() => _formData['name'] = val);
@@ -50,7 +50,7 @@ class _AddListItemState extends State<AddListItem> {
               TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(labelText: 'Ilość'),
-                  validator: (String val) => val == '' ? 'Podaj ilość!' : null,
+                  validator: (String? val) => val == '' ? 'Podaj ilość!' : null,
                   onSaved: (val) {
                     setState(() => _formData['amount'] = val);
                   }),

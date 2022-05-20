@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/days.dart';
 
 class DaySwitcher extends StatelessWidget {
-  final String day;
-  final Function changeDay;
+  final String? day;
+  final Function? changeDay;
   DaySwitcher({this.day, this.changeDay});
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,13 @@ class DaySwitcher extends StatelessWidget {
         children: <Widget>[
           IconButton(
             icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => changeDay('back'),
+            onPressed: () => changeDay!('back'),
             color: Colors.red,
           ),
           Container(
             width: 160.0,
             child: Text(
-              Day[day],
+              Day[day!]!,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 26,
@@ -32,7 +32,7 @@ class DaySwitcher extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.arrow_forward_ios),
             color: Colors.red,
-            onPressed: () => changeDay('forward'),
+            onPressed: () => changeDay!('forward'),
           ),
         ],
       ),

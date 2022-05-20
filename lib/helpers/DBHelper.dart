@@ -13,7 +13,7 @@ class DBHelper {
   static DatabaseReference _db = _instance.reference()..keepSynced(true);
 
   static Future<Map<String, List<Subject>>> getSubjects() async {
-    dynamic subjects = await _db.child('subjects').once();
+    final subjects = await _db.child('subjects').once();
     Map<String, List<Subject>> schedule = {
       'Monday': [],
       'Tuesday': [],
@@ -21,8 +21,9 @@ class DBHelper {
       'Thursday': [],
       'Friday': [],
     };
-    if (subjects == null) return schedule;
-    Map<String, dynamic> subjectMap = Map<String, dynamic>.from(subjects.value);
+    if (subjects.snapshot.value == null) return schedule;
+    Map<String, dynamic> subjectMap = Map<String, dynamic>.from(
+        subjects.snapshot.value as Map<dynamic, dynamic>);
     subjectMap.forEach((day, subjects) {
       List<Subject> list = [];
       subjects.forEach((sub) {
@@ -67,9 +68,10 @@ class DBHelper {
   }
 
   static Future<List<Item>> getShopList() async {
-    DataSnapshot snapshot = await _db.child('shopList').once();
-    if (snapshot?.value == null) return [];
-    Map<String, dynamic> shopList = Map<String, dynamic>.from(snapshot.value);
+    final response = await _db.child('shopList').once();
+    if (response.snapshot.value == null) return [];
+    Map<String, dynamic> shopList = Map<String, dynamic>.from(
+        response.snapshot.value as Map<dynamic, dynamic>);
     List<Item> list = [];
     shopList.forEach((key, item) {
       list.add(

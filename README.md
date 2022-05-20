@@ -1,12 +1,23 @@
-# all_in_one
+# All in One Application
 
-A new Flutter application that include all need features in one places.
+A new Flutter application that includes all needed features in one place.
 
 ## Getting Started
 
-### to order to run app on your own you need to
+### to order to run the app on your own you need to
 
-1. install all dependency by running fluttter get pub
+1. install all dependencies by running:
+
+```
+flutter pub get
+```
+
 2. create firebase project
-3. add android application to your project
-4. while adding application add generated google-services.json to android/app
+
+3. add android, ios, web applications to your project
+
+4. with flutterfire configure firebase in the project with the command:
+
+```
+flutterfire configure --project=<project-id>
+```

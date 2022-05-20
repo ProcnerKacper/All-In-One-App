@@ -4,12 +4,12 @@ import 'package:intl/intl.dart';
 import '../models/subject.dart';
 
 class AddSubject extends StatefulWidget {
-  final int index;
-  final Subject subject;
+  final int? index;
+  final Subject? subject;
   final state = _AddSubjectState();
-  final Function remove;
+  final Function? remove;
 
-  AddSubject({this.index, this.subject, this.remove, Key key})
+  AddSubject({this.index, this.subject, this.remove, Key? key})
       : super(key: key);
 
   @override
@@ -21,18 +21,18 @@ class AddSubject extends StatefulWidget {
 class _AddSubjectState extends State<AddSubject> {
   final _formKey = GlobalKey<FormState>();
   final _typeList = ['Wykład', 'Ćwiczenia'];
-  TimeOfDay _startTime;
-  TimeOfDay _endTime;
-  String _type;
+  late TimeOfDay _startTime;
+  late TimeOfDay _endTime;
+  String? _type;
   bool isInit = true;
 
   @override
   void didChangeDependencies() {
     if (isInit) {
       setState(() {
-        _startTime = widget.subject.startTime;
-        _endTime = widget.subject.endTime;
-        _type = widget.subject.subcjectType;
+        _startTime = widget.subject!.startTime;
+        _endTime = widget.subject!.endTime;
+        _type = widget.subject!.subcjectType;
       });
       isInit = false;
     }
@@ -41,14 +41,14 @@ class _AddSubjectState extends State<AddSubject> {
 
   double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
 
-  Future<TimeOfDay> _showTimePicker() async {
+  Future<TimeOfDay?> _showTimePicker() async {
     return await showTimePicker(
       initialTime: TimeOfDay.now(),
       context: context,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child,
+          child: child!,
         );
       },
     );
@@ -76,45 +76,45 @@ class _AddSubjectState extends State<AddSubject> {
                               ),
                             ))
                         .toList(),
-                    onChanged: (type) {
+                    onChanged: (dynamic type) {
                       if (type != null) {
                         setState(() => _type = type);
                       }
                     },
-                    validator: (String val) =>
+                    validator: (String? val) =>
                         val == null ? 'Nie wybrano typu zajęć!' : null,
-                    onSaved: (val) {
-                      widget.subject.subcjectType = val;
+                    onSaved: (dynamic val) {
+                      widget.subject!.subcjectType = val;
                     },
                   ),
                 ),
-                if (widget.index > 0)
+                if (widget.index! > 0)
                   IconButton(
                     icon: const Icon(Icons.delete),
                     color: Colors.red,
-                    onPressed: () => widget.remove(widget.index),
+                    onPressed: () => widget.remove!(widget.index),
                   ),
               ],
             ),
             TextFormField(
                 decoration: const InputDecoration(labelText: 'Lekcja'),
-                initialValue: widget.subject.subcject,
-                validator: (String val) =>
+                initialValue: widget.subject!.subcject,
+                validator: (String? val) =>
                     val == '' ? 'Nie podano nazyw przedmiotu!' : null,
                 onSaved: (val) {
-                  widget.subject.subcject = val;
+                  widget.subject!.subcject = val;
                 }),
             TextFormField(
                 decoration: const InputDecoration(labelText: 'Wykladowca'),
-                initialValue: widget.subject.professor,
+                initialValue: widget.subject!.professor,
                 onSaved: (val) {
-                  widget.subject.professor = val;
+                  widget.subject!.professor = val;
                 }),
             TextFormField(
                 decoration: const InputDecoration(labelText: 'Sala'),
-                initialValue: widget.subject.lectureHall,
+                initialValue: widget.subject!.lectureHall,
                 onSaved: (val) {
-                  widget.subject.lectureHall = val;
+                  widget.subject!.lectureHall = val;
                 }),
             SizedBox(
               height: 15,
@@ -134,7 +134,7 @@ class _AddSubjectState extends State<AddSubject> {
                         1969, 1, 1, _startTime.hour, _startTime.minute)),
                   ),
                   onPressed: () async {
-                    TimeOfDay time = await _showTimePicker();
+                    TimeOfDay? time = await _showTimePicker();
                     if (time != null) {
                       if (toDouble(time) > toDouble(_endTime)) {
                         Scaffold.of(context).showSnackBar(SnackBar(
@@ -142,7 +142,7 @@ class _AddSubjectState extends State<AddSubject> {
                               'Czas zakończenia mniejszy od rozpoczęcia'),
                         ));
                       } else {
-                        widget.subject.startTime = time;
+                        widget.subject!.startTime = time;
                         setState(() => _startTime = time);
                       }
                     }
@@ -160,7 +160,7 @@ class _AddSubjectState extends State<AddSubject> {
                         DateTime(1969, 1, 1, _endTime.hour, _endTime.minute)),
                   ),
                   onPressed: () async {
-                    TimeOfDay time = await _showTimePicker();
+                    TimeOfDay? time = await _showTimePicker();
                     if (time != null) {
                       if (toDouble(_startTime) > toDouble(time)) {
                         Scaffold.of(context).showSnackBar(SnackBar(
@@ -168,7 +168,7 @@ class _AddSubjectState extends State<AddSubject> {
                               Text('Czas zakończenia mniejszy od rozpoczęcia'),
                         ));
                       } else {
-                        widget.subject.endTime = time;
+                        widget.subject!.endTime = time;
                         setState(() => _endTime = time);
                       }
                     }
@@ -183,8 +183,8 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   bool validate() {
-    var valid = _formKey.currentState.validate();
-    if (valid) _formKey.currentState.save();
+    var valid = _formKey.currentState!.validate();
+    if (valid) _formKey.currentState!.save();
     return valid;
   }
 }

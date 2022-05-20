@@ -19,8 +19,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   static final String today = DateFormat.EEEE().format(DateTime.now());
   String _pickedDay = Day.containsKey(today) ? today : 'Monday';
   bool isLoading = true;
-  double startPosition;
-  double updatePosition;
+  late double startPosition;
+  late double updatePosition;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   }
 
   Future<void> _editDay() async {
-    String response = await showDialog(
+    String? response = await showDialog(
         context: context,
         builder: (BuildContext context) => Dialog(
               shape: RoundedRectangleBorder(
@@ -80,10 +80,10 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                             vertical: 5.0, horizontal: 10.0),
                         child: ListTile(
                           leading: Icon(
-                            data['icon'],
+                            data['icon'] as IconData?,
                             color: Colors.red,
                           ),
-                          title: Text(data['name']),
+                          title: Text(data['name'] as String),
                           onTap: () => Navigator.of(context).pop(data['name']),
                         ),
                       ),
@@ -142,7 +142,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           child: Consumer<ScheduleProvider>(
             builder: (ctx, scheduleProvider, childSchedule) => Column(
               children: [
-                childSchedule,
+                childSchedule!,
                 Expanded(
                   child: SingleChildScrollView(
                     child: AnimatedSwitcher(
